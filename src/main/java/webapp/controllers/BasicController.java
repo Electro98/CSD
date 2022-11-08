@@ -11,9 +11,6 @@ import javax.validation.Valid;
 import webapp.entity.Stationery;
 import webapp.spring.StationeryDAO;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 @Controller
 public class BasicController {
     private final StationeryDAO stationeryDAO;
@@ -21,8 +18,6 @@ public class BasicController {
     @Autowired
     public BasicController(StationeryDAO stationeryDAO){
         this.stationeryDAO = stationeryDAO;
-        stationeryDAO.checkTableCreated();
-        stationeryDAO.insertExampleData();
     }
 
     @RequestMapping("/")
