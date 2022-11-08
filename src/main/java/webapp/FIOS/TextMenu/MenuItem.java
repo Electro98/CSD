@@ -1,4 +1,4 @@
-package FIOS.TextMenu;
+package webapp.FIOS.TextMenu;
 
 public interface MenuItem {
     String toText();

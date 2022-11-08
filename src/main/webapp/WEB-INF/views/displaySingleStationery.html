@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Single Stationery</title>
+</head>
+<body>
+    <h1 th:text="${title}">title</h1>
+    <h3>Single stationery object</h3>
+    <table>
+        <tr>
+            <td>Id</td>
+            <td><h4 th:text="${stationery.getId()}">Id</h4></td>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td><h4 th:text="${stationery.getName()}">Name</h4></td>
+        </tr>
+        <tr>
+            <td>Type</td>
+            <td><h4 th:text="${stationery.getType()}">Type</h4></td>
+        </tr>
+        <tr>
+            <td>Price</td>
+            <td><h4 th:text="${stationery.getPrice()}">Price</h4></td>
+        </tr>
+        <tr>
+            <td>Number in box</td>
+            <td><h4 th:text="${stationery.getNum_in_box()}">Number in box</h4></td>
+        </tr>
+    </table>
+    <a th:href="@{/}">Back to index page.</a>
+</body>
+</html>

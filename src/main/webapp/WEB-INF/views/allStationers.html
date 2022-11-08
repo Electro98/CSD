@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All stationers</title>
+</head>
+<body>
+    <h1>All stationers</h1>
+    <h3>just a table.</h3>
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Price</th>
+            <th>Number in box</th>
+        </tr>
+
+        <tr th:each="stationery: ${stationers}">
+            <td th:text="${stationery.getId()}">Id</td>
+            <td th:text="${stationery.getName()}">Name</td>
+            <td th:text="${stationery.getType()}">Type</td>
+            <td th:text="${stationery.getPrice()}">Price</td>
+            <td th:text="${stationery.getNum_in_box()}">Number in box</td>
+        </tr>
+    </table>
+    <a th:href="@{/}">Back to index page.</a>
+</body>
+</html>

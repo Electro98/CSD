@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Find by ID</title>
+</head>
+<body>
+<h1>FIND TV</h1>
+<h3>Input id of object to find it</h3>
+<form th:action="@{/stationery/new}" th:method="POST" th:object="${stationery}">
+    <table>
+        <tr>
+            <td><label for="name">Name</label></td>
+            <td>
+                <input type="text" id="name" th:field="*{name}" />
+                <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Error</div>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="type">Type</label></td>
+            <td>
+                <input type="text" id="type" th:field="*{type}" />
+                <div th:if="${#fields.hasErrors('type')}" th:errors="*{type}">Error</div>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="price">Price</label></td>
+            <td>
+                <input type="text" id="price" th:field="*{price}" />
+                <div th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Error</div>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="num_in_box">Number in box</label></td>
+            <td>
+                <input type="text" id="num_in_box" th:field="*{num_in_box}" />
+                <div th:if="${#fields.hasErrors('num_in_box')}" th:errors="*{num_in_box}">Error</div>
+            </td>
+        </tr>
+    </table>
+    <input type="submit" value="Add">
+</form>
+</body>
+</html>

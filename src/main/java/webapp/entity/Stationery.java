@@ -1,10 +1,23 @@
-package entity;
+package webapp.entity;
 
+import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+@Entity
 public class Stationery {
+    @Id
     private Integer id;
+    @NotEmpty(message = "Name can not be null or empty")
     private String name;
+    @NotEmpty(message = "Type can not be null or empty")
     private String type;
+    @NotEmpty(message = "Price can not be null or empty")
+    @Min(value = 0, message = "Price cannot be negative")
     private Double price;
+    @NotEmpty(message = "Num in box can not be null or empty")
+    @Min(value = 0, message = "Number in box cannot be negative")
     private Integer num_in_box;
 
     public Stationery() {}

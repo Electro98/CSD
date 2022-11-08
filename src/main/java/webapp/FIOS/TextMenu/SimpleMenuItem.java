@@ -1,4 +1,4 @@
-package FIOS.TextMenu;
+package webapp.FIOS.TextMenu;
 
 public class SimpleMenuItem implements MenuItem {
     private final String itemText;

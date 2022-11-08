@@ -1,11 +1,13 @@
-package spring;
+package webapp.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import webapp.spring.StationeryDAO;
 
 import javax.sql.DataSource;
 
@@ -17,6 +19,11 @@ public class SpringConfig {
 
     @Bean
     DataSource dataSource() {
+        try {
+            Class.forName("org.sqlite.JDBC");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(env.getRequiredProperty("datasource.driverClassName"));
         dataSource.setUrl(env.getRequiredProperty("datasource.url"));

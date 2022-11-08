@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete by id</title>
+</head>
+<body>
+    <h1>Find stationery object</h1>
+    <h3>Input id of object to find it</h3>
+    <form th:action="@{/stationery/delete}" th:method="POST" th:object="${stationery}">
+        <label for="id">Id</label>
+        <input type="number" id="id" th:field="*{id}"
+               th:class="${#fields.hasErrors('id')}? fieldError">
+        <div th:text="${message}" th:class="error-msg">Error</div>
+
+        <input type="submit" value="Find">
+    </form>
+    <a th:href="@{/}">Back to index page.</a>
+</body>
+</html>

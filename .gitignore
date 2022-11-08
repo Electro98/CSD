@@ -1,3 +1,5 @@
 target/
+# tomcat
+apache-tomcat*/
 # for database file
 empty.db

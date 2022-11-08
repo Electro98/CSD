@@ -1,6 +1,6 @@
-package spring;
+package webapp.spring;
 
-import entity.Stationery;
+import webapp.entity.Stationery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -24,7 +24,7 @@ public class StationeryDAO {
     }
 
     public Stationery findById(int id) {
-        return jdbcTemplate.queryForObject("SELECT * FROM stationery WHERE id = ?", Stationery.class, id);
+        return jdbcTemplate.query("SELECT * FROM stationery WHERE id = ?", new BeanPropertyRowMapper<>(Stationery.class), id).stream().findAny().orElse(null);
     }
 
     public List<Stationery> findByName(String nameLike) {

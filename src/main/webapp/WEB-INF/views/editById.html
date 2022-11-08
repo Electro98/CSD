@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit By Id</title>
+</head>
+<body>
+    <h1 th:if="${search}">Find stationery object to edit it</h1>
+    <h1 th:unless="${search}">Edit stationery object</h1>
+    <h3>wow, it's possible to edit object</h3>
+    <form th:if="${search}" th:action="@{/stationery/edit}" th:method="POST" th:object="${stationery}">
+        <label for="id">Id</label>
+        <input type="number" id="id" th:field="*{id}"
+               th:class="${#fields.hasErrors('id')}? fieldError">
+        <div th:text="${message}" th:class="error-msg">Error</div>
+
+        <input type="submit" value="Find">
+    </form>
+    <form th:unless="${search}" th:action="@{/stationery/edit_final}" th:method="POST" th:object="${stationery}">
+        <input type="hidden" id="id" th:field="*{id}" th:value="*{id}">
+        <table>
+            <tr>
+                <td><label for="name">Name</label></td>
+                <td>
+                    <input type="text" id="name" th:field="*{name}" />
+                    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Error</div>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="type">Type</label></td>
+                <td>
+                    <input type="text" id="type" th:field="*{type}" />
+                    <div th:if="${#fields.hasErrors('type')}" th:errors="*{type}">Error</div>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="price">Price</label></td>
+                <td>
+                    <input type="text" id="price" th:field="*{price}" />
+                    <div th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Error</div>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="num_in_box">Number in box</label></td>
+                <td>
+                    <input type="text" id="num_in_box" th:field="*{num_in_box}" />
+                    <div th:if="${#fields.hasErrors('num_in_box')}" th:errors="*{num_in_box}">Error</div>
+                </td>
+            </tr>
+        </table>
+        <input type="submit" value="Add">
+    </form>
+    <a th:href="@{/}">Back to index page.</a>
+</body>
+</html>

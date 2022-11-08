@@ -1,11 +1,13 @@
-import FIOS.InputHandler;
-import FIOS.TextMenu.ConsumerMenuItem;
-import FIOS.TextMenu.FunctionalMenu;
-import FIOS.TextMenu.SimpleMenuItem;
-import entity.Stationery;
+package webapp;
+
+import webapp.FIOS.InputHandler;
+import webapp.FIOS.TextMenu.ConsumerMenuItem;
+import webapp.FIOS.TextMenu.FunctionalMenu;
+import webapp.FIOS.TextMenu.SimpleMenuItem;
+import webapp.entity.Stationery;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import spring.SpringConfig;
-import spring.StationeryDAO;
+import webapp.config.SpringConfig;
+import webapp.spring.StationeryDAO;
 
 import java.util.List;
 import java.util.Optional;
