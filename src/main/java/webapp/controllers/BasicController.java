@@ -1,49 +1,75 @@
 package webapp.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import webapp.entity.Stationery;
+import webapp.entity.User;
 import webapp.spring.StationeryDAO;
+import webapp.spring.UserDAO;
 
 @Controller
 public class BasicController {
     private final StationeryDAO stationeryDAO;
+    private final UserDAO userDAO;
 
     @Autowired
-    public BasicController(StationeryDAO stationeryDAO){
+    public BasicController(StationeryDAO stationeryDAO, UserDAO userDAO){
         this.stationeryDAO = stationeryDAO;
+//        stationeryDAO.checkTableCreated();
+//        stationeryDAO.insertExampleData();
+        this.userDAO = userDAO;
+//        userDAO.checkTableCreated();
+//        userDAO.insertBasicUsers();
     }
 
     @RequestMapping("/")
-    public String showHomePage() {
+    public String showHomePage(HttpServletRequest httpServletRequest, Model model) {
+        String username = httpServletRequest.getUserPrincipal().getName();
+        model.addAttribute("is_admin", httpServletRequest.isUserInRole(User.UserRole.ADMIN.toString()));
+        model.addAttribute("username", username);
         return "index";
+    }
+
+    @GetMapping("/login")
+    public String login(Model model) {
+        model.addAttribute("user", new User());
+        return "users/login";
+    }
+
+    @GetMapping("/registration")
+    public String registration(Model model) {
+        model.addAttribute("user", new User());
+        return "users/registration";
+    }
+
+    @PostMapping("/registration")
+    public String registration(@Valid @ModelAttribute("user") User user, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "users/registration";
+        } else if (userDAO.exist(user.getUsername())) {
+            String message = "This username has taken. Try another username";
+            model.addAttribute("message", message);
+            return "users/registration";
+        }
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        user.setRole(User.UserRole.USER.toRole());
+        user.setPassword(encoder.encode(user.getPassword()));
+        userDAO.insert(user);
+        return "redirect:/login";
     }
 
     @GetMapping("/stationery/all")
     public String allStationers(Model model){
         model.addAttribute("stationers", stationeryDAO.findAll());
         return "allStationers";
-    }
-
-    @GetMapping("/stationery/new")
-    public String add(Model model){
-        model.addAttribute("stationery", new Stationery());
-        return "addStationery";
-    }
-
-    @PostMapping("/stationery/new")
-    public String add(@Valid @ModelAttribute("stationery") Stationery stationery, BindingResult result){
-        if(result.hasErrors()){
-            return "addStationery";
-        }
-        stationeryDAO.insert(stationery);
-        return "redirect:/";
     }
 
     @GetMapping("/stationery/find")
@@ -62,63 +88,5 @@ public class BasicController {
         model.addAttribute("stationery", foundStationery);
         model.addAttribute("title", "Found stationery object by %d id.".formatted(stationery.getId()));
         return "displaySingleStationery";
-    }
-
-    @GetMapping("/stationery/edit")
-    public String update(Model model){
-        model.addAttribute("stationery", new Stationery());
-        model.addAttribute("search", true);
-        return "editById";
-    }
-
-    @PostMapping("/stationery/edit")
-    public String update_search(@ModelAttribute("stationery") Stationery stationery, Model model){
-        Stationery foundStationery = stationeryDAO.findById(stationery.getId());
-        if (foundStationery == null) {
-            model.addAttribute("stationery", new Stationery());
-            model.addAttribute("message", "This id does not exist in the database");
-            model.addAttribute("search", true);
-            return "editById";
-        }
-        model.addAttribute("stationery", foundStationery);
-        model.addAttribute("search", false);
-        return "editById";
-    }
-
-    @PostMapping("/stationery/edit_final")
-    @Validated
-    public String update(@Valid @ModelAttribute("stationery") Stationery stationery, BindingResult result, Model model){
-        Stationery foundStationery = stationeryDAO.findById(stationery.getId());
-
-        if (foundStationery == null) {
-            // Should be impossible for normies
-            model.addAttribute("message", "This id does not exist in the database");
-            model.addAttribute("search", true);
-            return "editById";
-        }
-        if (result.hasErrors()) {
-            model.addAttribute("stationery", stationery);
-            model.addAttribute("search", false);
-            return "editById";
-        }
-        stationeryDAO.update(stationery);
-        return "redirect:/";
-    }
-
-    @GetMapping("/stationery/delete")
-    public String delete(Model model){
-        model.addAttribute("stationery", new Stationery());
-        return "deleteById";
-    }
-
-    @PostMapping("/stationery/delete")
-    public String delete(@ModelAttribute("stationery") Stationery stationery, Model model){
-        Stationery foundStationery = stationeryDAO.findById(stationery.getId());
-        if(foundStationery == null) {
-            model.addAttribute("message", "This id does not exist in the database");
-            return "deleteById";
-        }
-        stationeryDAO.delete(stationery.getId());
-        return "redirect:/";
     }
 }

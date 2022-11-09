@@ -7,11 +7,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import webapp.spring.SQLiteUserDetailService;
 import webapp.spring.StationeryDAO;
+import webapp.spring.UserDAO;
 
 import javax.sql.DataSource;
 
 @Configuration
+@ComponentScan("webapp")
 @PropertySource("classpath:application.properties")
 public class SpringConfig {
     @Autowired
@@ -33,5 +36,15 @@ public class SpringConfig {
     @Bean
     StationeryDAO stationeryDAO() {
         return new StationeryDAO();
+    }
+
+    @Bean
+    UserDAO userDAO() {
+        return new UserDAO();
+    }
+
+    @Bean
+    SQLiteUserDetailService userDetailsService() {
+        return new SQLiteUserDetailService();
     }
 }

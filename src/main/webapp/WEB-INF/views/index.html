@@ -6,14 +6,16 @@
 </head>
 <body>
     <h1>Index page</h1>
-    <h3>Welcome back, username...</h3>
+    <h3 th:text="${'Welcome back, ' + username + '...'}">Greeting</h3>
+    <h4 th:if="${is_admin}">Lol, you admin!!!</h4>
     <ul>
         <li><a th:href="@{/stationery/all}">Show all stationers</a></li>
-        <li><a th:href="@{/stationery/new}">Add new stationery</a></li>
+        <li th:if="${is_admin}"><a th:href="@{/admin/stationery/new}">Add new stationery</a></li>
         <li><a th:href="@{/stationery/find}">Find stationery by id</a></li>
-        <li><a th:href="@{/stationery/edit}">Update stationery</a></li>
-        <li><a th:href="@{/stationery/delete}">Delete stationery</a></li>
+        <li th:if="${is_admin}"><a th:href="@{/admin/stationery/edit}">Update stationery</a></li>
+        <li th:if="${is_admin}"><a th:href="@{/admin/stationery/delete}">Delete stationery</a></li>
 <!--        <li><a th:href="@{/}"></a></li>-->
     </ul>
+    <p>Probably you want to <a th:href="@{/logout}">logout</a>?</p>
 </body>
 </html>

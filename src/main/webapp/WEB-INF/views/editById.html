@@ -8,7 +8,7 @@
     <h1 th:if="${search}">Find stationery object to edit it</h1>
     <h1 th:unless="${search}">Edit stationery object</h1>
     <h3>wow, it's possible to edit object</h3>
-    <form th:if="${search}" th:action="@{/stationery/edit}" th:method="POST" th:object="${stationery}">
+    <form th:if="${search}" th:action="@{/admin/stationery/edit}" th:method="POST" th:object="${stationery}">
         <label for="id">Id</label>
         <input type="number" id="id" th:field="*{id}"
                th:class="${#fields.hasErrors('id')}? fieldError">
@@ -16,7 +16,7 @@
 
         <input type="submit" value="Find">
     </form>
-    <form th:unless="${search}" th:action="@{/stationery/edit_final}" th:method="POST" th:object="${stationery}">
+    <form th:unless="${search}" th:action="@{/admin/stationery/edit_final}" th:method="POST" th:object="${stationery}">
         <input type="hidden" id="id" th:field="*{id}" th:value="*{id}">
         <table>
             <tr>

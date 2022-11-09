@@ -7,7 +7,7 @@
 <body>
     <h1>Find stationery object</h1>
     <h3>Input id of object to find it</h3>
-    <form th:action="@{/stationery/delete}" th:method="POST" th:object="${stationery}">
+    <form th:action="@{/admin/stationery/delete}" th:method="POST" th:object="${stationery}">
         <label for="id">Id</label>
         <input type="number" id="id" th:field="*{id}"
                th:class="${#fields.hasErrors('id')}? fieldError">

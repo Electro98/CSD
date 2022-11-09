@@ -60,7 +60,7 @@ public class StationeryDAO {
     }
 
     public void insertExampleData() {
-        Stationery stationers[] = {
+        Stationery[] stationers = {
                 new Stationery("Berlingo xGold 0.7 Blue", "pen", 55.5, 120),
                 new Stationery("Berlingo xGold 0.7 Red", "pen", 56.5, 120),
                 new Stationery("Berlingo Instinct", "eraser", 40.1, 50),
