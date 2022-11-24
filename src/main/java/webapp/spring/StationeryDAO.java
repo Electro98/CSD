@@ -31,6 +31,10 @@ public class StationeryDAO {
         return jdbcTemplate.query("SELECT * FROM stationery WHERE name LIKE ?", new BeanPropertyRowMapper<>(Stationery.class), nameLike);
     }
 
+    public Stationery findLastInserted() {
+        return jdbcTemplate.query("SELECT * FROM stationery ORDER BY id DESC LIMIT 1", new BeanPropertyRowMapper<>(Stationery.class)).stream().findAny().orElse(null);
+    }
+
     public int insert(Stationery stationery) {
         return jdbcTemplate.update(
                 "insert into stationery (name, type, price, num_in_box) VALUES (?, ?, ?, ?)",
