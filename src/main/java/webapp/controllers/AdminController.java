@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import webapp.JMS.Producer;
 import webapp.entity.Stationery;
 import webapp.spring.StationeryDAO;
 
@@ -18,10 +19,12 @@ import javax.validation.Valid;
 @RequestMapping("/admin")
 public class AdminController {
     private final StationeryDAO stationeryDAO;
+    private final Producer producer;
 
     @Autowired
-    public AdminController(StationeryDAO stationeryDAO){
+    public AdminController(StationeryDAO stationeryDAO, Producer producer){
         this.stationeryDAO = stationeryDAO;
+        this.producer = producer;
     }
 
     @GetMapping("/stationery/new")
@@ -36,6 +39,7 @@ public class AdminController {
             return "addStationery";
         }
         stationeryDAO.insert(stationery);
+        producer.send("Stationery was created!");
         return "redirect:/";
     }
 
@@ -77,6 +81,7 @@ public class AdminController {
             return "editById";
         }
         stationeryDAO.update(stationery);
+        producer.send("Stationery was updated!");
         return "redirect:/";
     }
 
@@ -94,6 +99,7 @@ public class AdminController {
             return "deleteById";
         }
         stationeryDAO.delete(stationery.getId());
+        producer.send("Stationery was deleted!");
         return "redirect:/";
     }
 }

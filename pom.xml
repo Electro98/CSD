@@ -106,6 +106,42 @@
             <artifactId>jackson-databind</artifactId>
             <version>2.14.1</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/javax.jms/jms -->
+        <!-- https://mvnrepository.com/artifact/javax.jms/javax.jms-api -->
+        <dependency>
+            <groupId>javax.jms</groupId>
+            <artifactId>javax.jms-api</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-jms -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jms</artifactId>
+            <version>5.3.23</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.activemq/activemq-spring -->
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-spring</artifactId>
+            <version>5.17.2</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.activemq/artemis-server -->
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>artemis-server</artifactId>
+            <version>2.26.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.activemq/artemis-jms-server -->
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>artemis-jms-server</artifactId>
+            <version>2.26.0</version>
+        </dependency>
     </dependencies>
 
     <build>
