@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import webapp.JMS.Producer;
 import webapp.entity.Stationery;
 import webapp.spring.StationeryDAO;
 
@@ -15,12 +14,10 @@ import java.util.List;
 @RequestMapping("/api/v0.1")
 public class APIController {
     private final StationeryDAO stationeryDAO;
-    private final Producer producer;
 
     @Autowired
-    public APIController(StationeryDAO stationeryDAO, Producer producer) {
+    public APIController(StationeryDAO stationeryDAO){
         this.stationeryDAO = stationeryDAO;
-        this.producer = producer;
     }
 
     // GET STATIONERY/STATIONERS
@@ -49,7 +46,6 @@ public class APIController {
             return ResponseEntity.badRequest().build();
         if (stationeryDAO.insert(stationery) == 0)
             return ResponseEntity.badRequest().build();
-        producer.send("Stationery was created!");
         return ResponseEntity.ok(stationeryDAO.findLastInserted());
     }
 
@@ -61,7 +57,6 @@ public class APIController {
             return ResponseEntity.notFound().build();
         if (stationeryDAO.delete(id) == 0)
             return ResponseEntity.internalServerError().build();
-        producer.send("Stationery was removed!");
         return ResponseEntity.ok(stationery);
     }
 
@@ -73,7 +68,6 @@ public class APIController {
             return ResponseEntity.notFound().build();
         if (stationeryDAO.update(stationery) == 0)
             return ResponseEntity.internalServerError().build();
-        producer.send("Stationery was updated!");
         return ResponseEntity.ok(stationery);
     }
 
@@ -84,7 +78,6 @@ public class APIController {
             return ResponseEntity.notFound().build();
         if (stationeryDAO.update(stationery) == 0)
             return ResponseEntity.internalServerError().build();
-        producer.send("Stationery was updated!");
         return ResponseEntity.ok(stationery);
     }
 }
