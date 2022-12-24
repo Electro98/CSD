@@ -1,6 +1,7 @@
 package webapp.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -13,6 +14,7 @@ import webapp.spring.SQLiteUserDetailService;
 
 @Configuration
 @EnableWebSecurity
+@EnableConfigurationProperties
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private SQLiteUserDetailService userDetailsService;
 
