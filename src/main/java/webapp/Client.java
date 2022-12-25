@@ -31,8 +31,8 @@ public class Client {
             return textRepresentation;
         }
     };
-    private static final String STATIONERY_API_URL = "http://localhost:8081/csd/api/v0.1/stationers/";
-    private static final String STATIONERY_API_URL_ID = "http://localhost:8081/csd/api/v0.1/stationers/{id}";
+    private static final String STATIONERY_API_URL = "http://localhost:8080/api/v0.1/stationers/";
+    private static final String STATIONERY_API_URL_ID = "http://localhost:8080/api/v0.1/stationers/{id}";
 
     private static final Scanner in = new Scanner(System.in).useDelimiter("\\p{javaWhitespace}+\\n*");
     private static final InputHandler userIn = new InputHandler(in);
